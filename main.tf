@@ -31,7 +31,7 @@ resource "aws_security_group" "default" {
 resource "aws_instance" "web" {
   ami                    = "ami-022e1a32d3f742bd8"  # Replace with the desired AMI ID
   instance_type          = "t2.micro"
-  key_name               = "bibinaws123"    # Replace with the desired key pair name
+  key_name               = "bibinaws123"    # Replacee with the desired key pair name
   vpc_security_group_ids = [aws_security_group.default.id]
   tags = {
     Name = "my-webserver"
