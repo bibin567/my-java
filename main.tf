@@ -43,5 +43,12 @@ resource "aws_instance" "web" {
       "curl -O https://my-webserver-code-url.jar",  # Replace with the actual URL of your web server code JAR
       "java -jar my-webserver-code.jar &"          # Replace with the actual JAR file name
     ]
+
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"                      # Replace with the SSH user of your EC2 instance
+      private_key = file("./bibinaws123") # Replace with the path to your private key file
+      host        = self.public_ip
+    }
   }
 }
