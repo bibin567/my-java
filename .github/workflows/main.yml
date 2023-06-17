@@ -46,4 +46,7 @@ jobs:
       - name: Deploy with Terraform
         run: |
           terraform init
+          terraform plan
           terraform apply --auto-approve
+            -var "private_key=${{ secrets.PRIVATE_KEY }}"  # Pass the private key as a variable
+          
