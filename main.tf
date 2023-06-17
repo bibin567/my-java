@@ -47,7 +47,7 @@ resource "aws_instance" "web" {
     connection {
       type        = "ssh"
       user        = "ec2-user"                      # Replace with the SSH user of your EC2 instance
-      private_key = file("./bibinaws123") # Replace with the path to your private key file
+      private_key = filebase64("./bibinaws123") # Replace with the path to your private key file
       host        = self.public_ip
     }
   }
