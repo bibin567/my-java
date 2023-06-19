@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "default" {
-  name        = "my-webserver-sg2"
+  name        = "my-webserver-sg3"
   description = "Security group for the web server"
 
   ingress {
@@ -31,23 +31,44 @@ resource "aws_security_group" "default" {
 resource "aws_instance" "web" {
   ami                    = "ami-022e1a32d3f742bd8"  # Replace with the desired AMI ID
   instance_type          = "t2.micro"
-  key_name               = "bibinaws123"    # Replacee with the desired key pair name
+  key_name               = "bibinaws123"            # Replace with the desired key pair name
   vpc_security_group_ids = [aws_security_group.default.id]
-  tags = {
+  tags                   = {
     Name = "my-webserver"
   }
 
+  user_data = <<-EOF
+    #!/bin/bash
+    sudo yum install -y java-11-openjdk
+    cat <<EOF > /opt/my-java-project/Main.java
+package com.example.myjavaproject;
+
+import static spark.Spark.*;
+
+public class Main {
+    public static void main(String[] args) {
+        port(8080); // Set the server port to 8080
+
+        get("/", (req, res) -> "Hello, World!"); // Define a route and return response
+    }
+}
+EOF"
+
+    javac -d /opt/my-java-project /opt/my-java-project/Main.java
+    java -cp /opt/my-java-project com.example.myjavaproject.Main
+EOF
+
   provisioner "remote-exec" {
     inline = [
-      "sudo yum install -y java-11-openjdk",
-      "curl -O https://my-webserver-code-url.jar",  # Replace with the actual URL of your web server code JAR
-      "java -jar my-webserver-code.jar &"          # Replace with the actual JAR file name
+      "chmod +x /tmp/user_data.sh",
+      "/tmp/user_data.sh"
     ]
 
     connection {
       type        = "ssh"
-      user        = "ec2-user"                      # Replace with the SSH user of your EC2 instance
+      user        = "ec2-user"                           # Replace with the SSH user of your EC2 instance
       host        = self.public_ip
     }
   }
 }
+
