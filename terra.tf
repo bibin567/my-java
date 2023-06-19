@@ -14,7 +14,7 @@ resource "aws_instance" "example" {
   }
 
   # Configure security group for ports 8080 and 22
-  security_groups = ["tomcat_security_group"]
+  vpc_security_group_ids = [aws_security_group.tomcat_security_group.id]
 
   # Define user data with Tomcat installation and deployments
   user_data = <<-EOF
@@ -34,10 +34,10 @@ resource "aws_instance" "example" {
 
 # Create a security group for Tomcat instance
 resource "aws_security_group" "tomcat_security_group" {
-  name        = "tomcat_security_groups"
+  name        = "tomcat_security_group"
   description = "Security group for Tomcat instance"
 
-  # Allow inbound traffic on ports 8080 , 22
+  # Allow inbound traffic on ports 8080 and 22
   ingress {
     from_port   = 8080
     to_port     = 8080
