@@ -16,7 +16,7 @@ resource "aws_instance" "example" {
   # Configure security group for ports 8080 and 22
   security_groups = ["tomcat_security_group"]
 
-  # Define user data with Tomcat installation and deployment
+  # Define user data with Tomcat installation and deployments
   user_data = <<-EOF
               #!/bin/bash
               sudo apt-get update
