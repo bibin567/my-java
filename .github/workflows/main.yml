@@ -27,5 +27,5 @@ jobs:
       - name: Deploy Infrastructure
         run: terraform apply -auto-approve
 
-      - name: Clean up Terraform
-        run: terraform destroy -auto-approve
+#      - name: Clean up Terraform
+#        run: terraform destroy -auto-approve
