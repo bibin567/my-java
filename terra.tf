@@ -7,7 +7,7 @@ provider "aws" {
 resource "aws_instance" "example" {
   ami           = "ami-053b0d53c279acc90"  # Replace with the Ubuntu AMI ID for your desired region
   instance_type = "t2.micro"
-  key_name      = "bibinaws123"  # Replace with your desired key pair name
+  key_name      = "bibinaws123"
 
   tags = {
     Name = "Tomcat Instance"
@@ -16,7 +16,7 @@ resource "aws_instance" "example" {
   # Configure security group for ports 8080 and 22
   security_groups = ["tomcat_security_group"]
 
-  # Define user data with Tomcat insstallation and deployment
+  # Define user data with Tomcat installation and deployment
   user_data = <<-EOF
               #!/bin/bash
               sudo apt-get update
