@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "default" {
-  name        = "my-webserver-sg1"
+  name        = "my-webserver-sg2"
   description = "Security group for the web server"
 
   ingress {
