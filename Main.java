@@ -1,22 +1,16 @@
-package com.example.webserver;
-
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+public class Webserver {
 
-public class HelloServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        response.setContentType("text/plain");
-
-        PrintWriter out = response.getWriter();
-        out.println("Hello, World!");
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(8080);
+        while (true) {
+            Socket socket = serverSocket.accept();
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            out.println("Hello, world!");
+        }
     }
 }
