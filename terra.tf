@@ -34,7 +34,7 @@ resource "aws_instance" "example" {
 
 # Create a security group for Tomcat instance
 resource "aws_security_group" "tomcat_security_group" {
-  name        = "tomcat_security_group"
+  name        = "tomcat_security_groups"
   description = "Security group for Tomcat instance"
 
   # Allow inbound traffic on ports 8080 and 22
