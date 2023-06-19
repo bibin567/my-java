@@ -12,6 +12,8 @@ jobs:
         run: mvn clean install
       - name: Run Maven Unit Tests
         run: mvn test
+      - name: Initialize Terraform
+        run: terraform init
       - name: Deploy Java Web Server to EC2
         uses: hashicorp/terraform@v1.2.1
         with:
@@ -21,4 +23,3 @@ jobs:
           tf_actions_auto_approve: "true"
           entryPoint: terraform
           args: apply -auto-approve
-
