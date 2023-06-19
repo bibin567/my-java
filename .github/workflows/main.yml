@@ -15,5 +15,6 @@ jobs:
       - name: Deploy Java Web Server to EC2
         uses: hashicorp/terraform@v1.2.1
         with:
-          entryPoint: apply
-          args: -auto-approve
+          entryPoint: terraform
+          args: apply -auto-approve
+
